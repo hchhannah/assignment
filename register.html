@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>assignment</title>
+		<!-- <link rel="stylesheet" href="style.css"> -->
+		<link rel="stylesheet" href="css/page.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<!-- <script src="https://unpkg.com/vue@3"></script> -->
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+		<script  src="js/firebase.js"></script>
+	</head>
+
+<body style="margin:0px; background-color:#f5eadb;">
+
+	<div class="box" id="app">
+		<form name="form1">
+			<div class="row">
+				<form class="col s12">
+					<div class="title">SIGN UP</div>
+					<br>
+					<div class="row">
+						<div class="input-field col s12 ">
+							<i class="material-icons prefix">email</i>
+							<input name="email" type="email" class="validate" v-model="user.email" @keyup.enter="getData" placeholder="E-Mail Address">
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<i class="material-icons prefix">lock</i>
+							<input name="password" type="password" class="validate" v-model="user.password" @keyup.enter="getData" placeholder="Password (at least 6 words)">
+						</div>
+					</div>
+					
+					<div class="row" style="text-align:center">
+							<a class="waves-effect waves-light btn " @click="getData" > Sign up </a>					
+					</div>
+					
+					<div class="row" style="text-align:center">
+						Already have an account? <a class="ahref" href="index.html">Login</a>
+					</div>
+					</form>
+				</div>
+			</form>
+		</div>
+
+		
+		<!-- vue -->
+		<script type="module">
+		import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
+		import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
+		
+		const firebaseApp = initializeApp({
+			apiKey: "AIzaSyCqJhCj5zSKtO8barwWUlCLhV3QGXgeaXg",
+			authDomain: "interview-assignment-web.firebaseapp.com",
+			projectId: "interview-assignment-web",
+			storageBucket: "interview-assignment-web.appspot.com",
+			messagingSenderId: "952515033251",
+			appId: "1:952515033251:web:8f19f723573063c90ee716",
+			measurementId: "G-S0XVRDSR7B"
+		});
+
+		const auth = getAuth(firebaseApp);
+		const user = auth.currentUser;
+
+			var app = new Vue({
+				el: '#app',
+				data:{
+					user:{
+						email:'',
+						password:''
+					}
+				},
+			methods:{
+				getData: function(){
+					createUserWithEmailAndPassword(auth, this.user.email, this.user.password)
+					.then(() => {
+						alert("註冊成功!");
+						location.replace("index.html")
+					})
+					.catch((error) => { 
+						alert("註冊失敗!");
+						const errorCode = error.code;
+						const errorMessage = error.message;
+					});
+				}
+			}
+		})
+
+	</script>
+
+	
+</body>
+
+</html>

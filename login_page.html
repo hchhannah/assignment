@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>assignment</title>
+	<!-- <link rel="stylesheet" href="style.css"> -->
+	<link rel="stylesheet" href="css/page.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<!-- <script src="https://unpkg.com/vue@3"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+	<script src="js/firebase.js"></script>
+</head>
+
+<body style="margin:0px; background-color:#f5eadb;">
+
+      
+        <div class="row" id="app">
+            <div class="col s12 m7">
+              <div class="card">
+                <div class="card-image">
+                  <img src="img/man-icon.jpg">
+                  <span class="card-title"><b>Profile</b></span>
+                </div>
+                <div class="card-content" >
+                  <p>E-Mail Address: <b>{{user.email}}</b></p>
+                </div>
+                <div class="card-action" @click="logout">
+                  <a href="#">Log out</a>
+                </div>
+                <div class="card-action">
+                  <a href="changePw.html">Change password</a>
+                </div>
+              </div>
+            </div>
+          </div>
+	
+
+	<!-- vue -->
+	<script type="module">
+		import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
+		import { getAuth, onAuthStateChanged, signOut} from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
+		
+		const firebaseApp = initializeApp({
+			apiKey: "AIzaSyCqJhCj5zSKtO8barwWUlCLhV3QGXgeaXg",
+			authDomain: "interview-assignment-web.firebaseapp.com",
+			projectId: "interview-assignment-web",
+			storageBucket: "interview-assignment-web.appspot.com",
+			messagingSenderId: "952515033251",
+			appId: "1:952515033251:web:8f19f723573063c90ee716",
+			measurementId: "G-S0XVRDSR7B"
+		});
+
+		const auth = getAuth(firebaseApp);
+    
+        var app = new Vue({
+          el: '#app',
+          data:{
+            user:{
+              email: sessionStorage.getItem("email"),
+        
+            }
+          },
+          methods:{
+          logout: function(){
+              signOut(auth).then(res => {
+                location.replace("index.html");
+              });
+          }
+			}
+		})
+    </script>
+
+
+</body>
+
+</html>

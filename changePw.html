@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>assignment</title>
+		<!-- <link rel="stylesheet" href="style.css"> -->
+		<link rel="stylesheet" href="css/page.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<!-- <script src="https://unpkg.com/vue@3"></script> -->
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+		<script  src="js/firebase.js"></script>
+	</head>
+
+<body style="margin:0px; background-color:#f5eadb;">
+	
+	<div class="box2" id="app">
+		<form name="form1">
+			<div class="row">
+				<form class="col s12">
+					<div class="title">CHANGE PASSWORD</div>
+					<br>
+					<div class="row">
+						<div class="input-field col s12 ">
+							<i class="material-icons prefix">lock</i>
+							<input name="password" type="password" class="validate" v-model="user.newPassword" @keyup.enter="getData" placeholder="New Password (at least 6 words)">
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<i class="material-icons prefix">lock_outline</i>
+							<input name="password" type="password" class="validate" v-model="user.confirmPassword" @keyup.enter="getData" placeholder="Confirm New Password">
+						</div>
+					</div>
+					
+					<div class="row" style="text-align:center">
+							<a class="waves-effect waves-light btn " @click="getData" > change </a>					
+					</div>
+					
+					<div class="row" style="text-align:center">
+						 <a class="ahref" href="login_page.html">Go back to profile</a>
+					</div>
+					</form>
+				</div>
+			</form>
+		</div>
+
+		
+		<!-- vue -->
+		<script type="module">
+		import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
+		import { getAuth, updatePassword } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
+		import { onAuthStateChanged  } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
+		
+		const firebaseApp = initializeApp({
+			apiKey: "AIzaSyCqJhCj5zSKtO8barwWUlCLhV3QGXgeaXg",
+			authDomain: "interview-assignment-web.firebaseapp.com",
+			projectId: "interview-assignment-web",
+			storageBucket: "interview-assignment-web.appspot.com",
+			messagingSenderId: "952515033251",
+			appId: "1:952515033251:web:8f19f723573063c90ee716",
+			measurementId: "G-S0XVRDSR7B"
+		});
+
+		
+		let userrr ="";
+		const auth = getAuth();
+	
+		onAuthStateChanged(auth, (user) => {			
+			if (user) {
+				userrr = user;
+			} 
+		});
+
+		var app = new Vue({
+			el: '#app',
+			data:{
+				user:{
+					newPassword:'',
+					confirmPassword:'',
+				}
+			},
+			
+			methods:{
+				getData: function(){
+			
+					if (this.user.newPassword == this.user.confirmPassword){
+						
+						updatePassword(userrr,this.user.newPassword).then(() => {
+								alert("更改密碼成功!請重新登入!");
+								location.replace("index.html");
+							}).catch((error) => { 
+								console.log(error);
+								alert("請確認密碼格式正確!");
+							});
+
+					}else{
+						alert("請確認密碼輸入正確!");
+					}
+					
+				}
+				
+			}
+	})
+
+	</script>
+	
+</body>
+
+</html>

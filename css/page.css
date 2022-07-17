@@ -1,0 +1,19 @@
+.head{
+    background-color:#408080; color:aliceblue; font-weight:bold; font-size:30px; text-align:center; padding:10px;
+}
+.box{
+    position:relative; top:40px; width:350px; height:450px; background-color:#FCFCFC; margin-left:auto; margin-right:auto; border:25px solid #FCFCFC; 
+}
+.box2{
+    position:relative; top:35px; width:350px; height:500px; background-color:#FCFCFC; margin-left:auto; margin-right:auto; border:25px solid #FCFCFC; 
+}
+.title{
+    color:#3D7878; font-weight:bold; font-size:30px; padding:15px;
+}
+
+.card{
+    width:50%; position:relative; left:435px; top:10px;
+}
+.card-content{
+    color:#408080;
+}
